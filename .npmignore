@@ -1,0 +1,8 @@
+# Ignore everything by default
+**
+
+# Include files and folders in npm package
+!/dist/**
+!/README.md
+!/pnpm-lock.yaml
+!/package.json
