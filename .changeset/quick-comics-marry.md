@@ -1,5 +1,0 @@
----
-"prerelease": major
----
-
-Initial release
