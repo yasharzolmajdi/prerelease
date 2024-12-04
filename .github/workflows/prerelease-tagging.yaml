@@ -26,6 +26,9 @@ jobs:
         run: |
           git push origin :refs/tags/"${{ steps.branch-name.outputs.branch }}-${{ steps.pre-config.outputs.tag }}" || true
 
+      - name: Wait for tag deletion to propagate
+        run: sleep 10
+
       - name: Fetch tags
         run: git fetch --tags
 
