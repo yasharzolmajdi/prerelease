@@ -39,26 +39,12 @@ jobs:
         run: rm -rf ~/.npmrc
       - name: Setup safe git directory
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
-      - name: Create pre.json and run changeset version
+      - name: Check for pre.json in pull requests
         if: github.event_name == 'pull_request'
         run: |
           if [[ ! -f ".changeset/pre.json" ]]; then
-            pnpm changeset pre enter ${{ github.event.pull_request.head.ref }}
-          fi
-          pnpm changeset version
-      - name: Configure Git identity
-        if: github.event_name == 'pull_request'
-        run: |
-          git config user.email "actions@github.com"
-          git config user.name "github-actions[bot]"
-      - name: Commit and push changes
-        if: github.event_name == 'pull_request'
-        run: |
-          git add package.json .changeset/README.md
-          # Check for changes, excluding pre.json
-          if [[ -n $(git status --porcelain | grep -v ".changeset/pre.json") ]]; then 
-            git commit -m "chore: update package.json and changeset README"
-            git push origin HEAD:$GITHUB_REF
+            echo "Error: This pull request requires a '.changeset/pre.json' file for prerelease."
+            exit 1
           fi
       - name: Create and publish versions
         uses: changesets/action@v1
