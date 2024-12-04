@@ -26,6 +26,9 @@ jobs:
         run: |
           git push origin :refs/tags/"${{ steps.branch-name.outputs.branch }}-${{ steps.pre-config.outputs.tag }}" || true
 
+      - name: Fetch tags
+        run: git fetch --tags
+
       - name: Create tag
         run: |
           git tag "${{ steps.branch-name.outputs.branch }}-${{ steps.pre-config.outputs.tag }}"
