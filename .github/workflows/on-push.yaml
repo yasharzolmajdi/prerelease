@@ -43,7 +43,7 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           if [[ ! -f ".changeset/pre.json" ]]; then
-            pnpm changeset pre ${{ github.event.pull_request.head.ref }}
+            pnpm changeset pre enter ${{ github.event.pull_request.head.ref }}
           fi
       - name: Check for changeset file and run version
         if: github.event_name == 'pull_request'
