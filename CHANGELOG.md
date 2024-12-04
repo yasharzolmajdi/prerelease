@@ -1,5 +1,11 @@
 # prerelease
 
+## 3.0.0-WP-1910.0
+
+### Major Changes
+
+- 4078a7b: chore: update console log message and add initial changeset configuration
+
 ## 2.0.1
 
 ### Patch Changes
