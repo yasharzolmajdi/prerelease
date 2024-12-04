@@ -2,9 +2,9 @@ name: Changesets
 on:
   push:
     tags:
-      - "*-beta"
+      - *-beta
     branches:
-      - "main"
+      - main
 
 env:
   CI: true
