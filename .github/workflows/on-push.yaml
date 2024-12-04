@@ -45,6 +45,12 @@ jobs:
           if [[ ! -f ".changeset/pre.json" ]]; then
             pnpm changeset pre ${{ github.event.pull_request.head.ref }}
           fi
+      - name: Check for changeset file and run version
+        if: github.event_name == 'pull_request'
+        run: |
+          if compgen -G ".changeset/*-*-*.md" > /dev/null; then
+            pnpm changeset version
+          fi
       - name: Create and publish versions
         uses: changesets/action@v1
         with:
