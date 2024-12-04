@@ -1,12 +1,10 @@
 name: Changesets
 on:
   push:
+    tags:
+      - "*-beta"
     branches:
       - "main"
-    tags-ignore:
-      - "**"
-  pull_request:
-    types: [labeled]
 
 env:
   CI: true
@@ -15,7 +13,6 @@ jobs:
     name: "Changesets Publish"
     timeout-minutes: 15
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/main' || contains(github.event.pull_request.labels.*.name, 'prerelease') }}
     steps:
       - uses: actions/checkout@v4
         with:
