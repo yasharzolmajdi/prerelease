@@ -1,5 +1,11 @@
 # prerelease
 
+## 2.0.2-next.0
+
+### Patch Changes
+
+- 640a753: chore: update console log message to reflect new version
+
 ## 2.0.1
 
 ### Patch Changes

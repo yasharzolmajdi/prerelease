@@ -4,5 +4,7 @@
   "initialVersions": {
     "@iconic21/prerelease": "2.0.1"
   },
-  "changesets": []
+  "changesets": [
+    "four-peas-cheer"
+  ]
 }
