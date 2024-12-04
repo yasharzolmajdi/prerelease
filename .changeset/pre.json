@@ -1,0 +1,8 @@
+{
+  "mode": "pre",
+  "tag": "WP-1910",
+  "initialVersions": {
+    "@iconic21/prerelease": "2.0.1"
+  },
+  "changesets": []
+}
