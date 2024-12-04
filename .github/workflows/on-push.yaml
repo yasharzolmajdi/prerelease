@@ -1,10 +1,9 @@
 name: Changesets
 on:
   push:
-    tags:
-      - "*-beta"
     branches:
       - "main"
+      - "next"
 
 env:
   CI: true
@@ -48,5 +47,5 @@ jobs:
           publish: pnpm ci:publish
           createGithubReleases: true
         env:
-          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
