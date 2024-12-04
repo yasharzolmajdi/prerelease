@@ -39,20 +39,28 @@ jobs:
         run: rm -rf ~/.npmrc
       - name: Setup safe git directory
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
-      - name: Create pre.json if it doesn't exist
+      - name: Create pre.json and run changeset version
         if: github.event_name == 'pull_request'
         run: |
           if [[ ! -f ".changeset/pre.json" ]]; then
             pnpm changeset pre enter ${{ github.event.pull_request.head.ref }}
           fi
           pnpm changeset version
+      - name: Commit and push changes
+        if: github.event_name == 'pull_request'
+        run: |
+          git add package.json .changeset/README.md
+          if [[ -n $(git status --porcelain) ]]; then
+            git commit -m "chore: update package.json and changeset README"
+            git push origin ${{ github.event.pull_request.head.ref }}
+          fi
       - name: Create and publish versions
         uses: changesets/action@v1
         with:
           version: pnpm ci:version
           commit: "chore: Update versions"
           title: "chore: Update versions"
-          publish: pnpm ci:publish
+          publish: pnpm ci:publish 1
           createGithubReleases: true
           branch: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.ref || github.ref_name }}
         env:
