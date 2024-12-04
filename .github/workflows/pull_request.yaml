@@ -1,0 +1,51 @@
+name: Prerelease Changesets
+on:
+  pull_request:
+    types: [labeled, synchronize]
+
+env:
+  CI: true
+jobs:
+  version:
+    name: "Changesets Publish"
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'prerelease') }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-node-modules-cache-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Authenticate NPM
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+      - name: Install Dependencies
+        if: ${{ steps.cache-node-modules.outputs.cache-hit != 'true' }}
+        run: pnpm install --frozen-lockfile
+      - name: Post Install Clean Up
+        run: rm -rf ~/.npmrc
+      - name: Setup safe git directory
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Create and publish versions
+        uses: changesets/action@v1
+        with:
+          version: pnpm ci:version
+          commit: "chore: Update versions"
+          title: "chore: Update versions"
+          publish: pnpm ci:publish
+          createGithubReleases: true
+          branch: ${{ github.event.pull_request.head.ref }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
