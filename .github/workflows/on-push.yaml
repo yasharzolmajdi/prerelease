@@ -53,10 +53,9 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           git add package.json .changeset/README.md
-          # Check for changes, excluding pre.json
           if [[ -n $(git status --porcelain | grep -v ".changeset/pre.json") ]]; then 
             git commit -m "chore: update package.json and changeset README"
-            git push origin ${{ github.event.pull_request.head.ref }}
+            git push origin ${{ github.event.pull_request.head.label }}
           fi
       - name: Create and publish versions
         uses: changesets/action@v1
