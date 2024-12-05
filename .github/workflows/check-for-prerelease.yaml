@@ -1,4 +1,4 @@
-name: Block Merge on pre.json
+name: Check For Prerelease
 
 on:
   pull_request:
@@ -9,6 +9,10 @@ jobs:
   block-merge:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Check for pre.json
         id: check-pre-json
         run: |
