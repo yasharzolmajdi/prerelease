@@ -1,5 +1,5 @@
 {
-  "mode": "pre",
+  "mode": "exit",
   "tag": "ACC-004",
   "initialVersions": {
     "@iconic21/prerelease": "2.0.1"
