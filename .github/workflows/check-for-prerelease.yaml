@@ -1,0 +1,23 @@
+name: Block Merge on pre.json
+
+on:
+  pull_request:
+    paths:
+      - ".changeset/pre.json"
+
+jobs:
+  block-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for pre.json
+        id: check-pre-json
+        run: |
+          if [ -f ".changeset/pre.json" ]; then
+            echo "::set-output name=exists::true"
+          fi
+
+      - name: Block Merge
+        if: steps.check-pre-json.outputs.exists == 'true'
+        run: |
+          echo "::error file=.changeset/pre.json::pre.json exists. Merging is blocked."
+          exit 1
