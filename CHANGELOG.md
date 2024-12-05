@@ -1,5 +1,12 @@
 # prerelease
 
+## 2.0.2
+
+### Patch Changes
+
+- 0675c6b: chore: update console log message to reflect new version 5
+- f9b2d04: chore: update console log message to reflect new version
+
 ## 2.0.2-ACC-004.1
 
 ### Patch Changes
