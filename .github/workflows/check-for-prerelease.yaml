@@ -1,4 +1,4 @@
-name: Block Merge on pre.json
+name: Check For Prerelease
 
 on:
   pull_request:
