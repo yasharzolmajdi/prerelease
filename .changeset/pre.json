@@ -1,0 +1,10 @@
+{
+  "mode": "exit",
+  "tag": "beta",
+  "initialVersions": {
+    "@iconic21/prerelease": "2.0.2"
+  },
+  "changesets": [
+    "yellow-bottles-taste"
+  ]
+}
