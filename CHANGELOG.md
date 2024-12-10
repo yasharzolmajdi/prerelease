@@ -1,5 +1,11 @@
 # prerelease
 
+## 0.0.0-20241210002436
+
+### Patch Changes
+
+- hello world
+
 ## 2.0.2
 
 ### Patch Changes
