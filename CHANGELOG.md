@@ -1,5 +1,11 @@
 # prerelease
 
+## 2.1.0
+
+### Minor Changes
+
+- 1d823be: Hello world
+
 ## 2.1.0-beta.0
 
 ### Minor Changes
